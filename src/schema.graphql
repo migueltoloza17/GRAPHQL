@@ -1,10 +1,17 @@
+directive @auth on FIELD_DEFINITION | FIELD
+scalar Upload
+
 type Query {    
-    getAllPosts(title : String!) : [Post]
+    getAllPosts(title:String!):[Post]
+    getPost(id:String!):Post
+    getUsers:[User] @auth
 }
 
 type Mutation {
     createPost(data:inputPost!):Post,
-    createUser(data:inputUser!):User
+    createUser(data:inputUser!):User,
+    login(data:inputLogin!):Auth,
+    addPhoto(photo:Upload!):String
 }
 
 type Post {
@@ -15,6 +22,22 @@ type Post {
     user:User!
 }
 
+type User {
+    id:ID
+    name:String!
+    email:String!
+}
+
+type Token {
+    token:String!
+    message:String!
+}
+
+type Auth {
+    token:String!
+    message:String!
+}
+
 input inputPost{
     #comentario
     title:String!
@@ -23,14 +46,13 @@ input inputPost{
     user: ID
 }
 
-type User {
-id:ID
-name:String!
-email:String!
-}
-
 input inputUser {
     name:String!
+    email:String!
+    password:String!
+}
+
+input inputLogin {
     email:String!
     password:String!
 }

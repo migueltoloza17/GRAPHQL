@@ -18,7 +18,7 @@ const postSchema = new Schema({
     },
     user: {
         type : Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'users'
     }
 })
 const Post = moongose.model('post', postSchema);

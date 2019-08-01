@@ -12,6 +12,19 @@ const getAllPosts = async (root, args) => {
     })*/
 }
 
+const getPost = async (root, args) => {
+    const post = await Post.findById(args.id).populate('user');
+    if(!post) return new Error('No se encontro el post');
+    return post.toObject();
+}
+
+const getUsers = async (root, args) => {
+const users = await users.find().exec();
+return users;
+}
+
 module.exports = {
-    getAllPosts
+    getAllPosts,
+    getPost,
+    getUsers
 }
